@@ -5,8 +5,7 @@
     $password = 'Toromaru@5513';
     
     try{
-        $dbh = new PDO($dsn,$user,$password);
-        echo "接続成功\n";
+        $db = new PDO($dsn,$user,$password);
     }catch (PDOException $e){
         echo "接続失敗: " . $e->getMessage() . "\n";
         exit();
