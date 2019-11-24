@@ -1,3 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+
+<script
+src="https://code.jquery.com/jquery-2.2.4.min.js"
+integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+crossorigin="anonymous"></script>
+<script type="text/javascript" src="script.js"></script>
+<link rel="stylesheet" href="style.css">
+<script>
+$(function() {
+var h = $(window).height(); //ブラウザウィンドウの高さを取得
+$('#main-contents').css('display','none'); //初期状態ではメインコンテンツを非表示
+$('#loader-bg ,#loader').height(h).css('display','block'); //ウィンドウの高さに合わせでローディング画面を表示
+});
+$(window).load(function () {
+$('#loader-bg').delay(900).fadeOut(800); //$('#loader-bg').fadeOut(800);でも可
+$('#loader').delay(600).fadeOut(300); //$('#loader').fadeOut(300);でも可
+$('#main-contents').css('display', 'block'); // ページ読み込みが終わったらメインコンテンツを表示する
+});
+</script>
+
+
+</head>
 <?php
 session_start();
 require("../../core/pdo_connect.php");
@@ -26,6 +52,14 @@ if(!empty($_POST)){
 }
 ?>
 
+
+<body>
+<div id="loader-bg">
+<div id="loading">
+<img src="loader.gif">
+</div>
+</div>
+<div id="main-contents">
 <form action="" method="post">
     <dl>
         <dt>職員番号</dt>
@@ -44,3 +78,5 @@ if(!empty($_POST)){
         </dd>
         <div><input type="submit" value="ログイン" /></div>
 </form>
+</div>
+</body>
