@@ -1,0 +1,42 @@
+@charset 'UTF-8';
+
+.clearfix::after {
+    content : " ";
+    display : block;
+    clear : both;
+}
+
+.search-box{
+    width: 300px;
+    height: 3000px;
+    background: darkgray;
+    float: left;
+}
+
+.book-views{
+    margin-left: 20%;
+    width: 100%;
+}
+
+.book-box{
+  display: inline-block;
+  width: 200px;
+  height: 100px;
+}
+
+.book-scale{
+    display:block;
+    margin-top: 10px;
+    margin-left: 100px;
+}
+
+.book-shadow{
+filter: drop-shadow(10px 10px 5px #aaa);
+}
+
+.book-text {
+    padding: 0.5em 1em;
+    margin: 1em 0;
+    width: 220px;
+    font-size: 15px;
+}

@@ -21,6 +21,9 @@ if(!empty($_POST)){
     if($_POST['publication'] == ''){
         $error['publication'] = 'blank';
     }
+    if($_POST['genre'] == ''){
+        $error['genre'] = 'blank';
+    }
     if($_POST['page'] == ''){
         $error['page'] = 'blank';
     }
@@ -125,6 +128,24 @@ if($_REQUEST['action'] == 'rewrite'){
         <dd><input type="date" name="publication" value="<?php echo htmlspecialchars($_POST['publication'], 3); ?>" />
         <?php if($error['publication'] == 'blank'): ?>
         <p>*出版日を入力してください</P>
+        <?php endif; ?>
+        </dd>
+
+        <dt>ジャンル</dt>
+        <dd>
+        <select name="genre">
+        <option value="">選択してください</option>
+        <option value="のりもの">のりもの</option>
+        <option value="どうぶつ">どうぶつ</option>
+        <option value="こんちゅう">こんちゅう</option>
+        <option value="しょくぶつ">しょくぶつ</option>
+        <option value="おばけ・ホラー">おばけ・ホラー</option>
+        <option value="むかしばなし">むかしばなし</option>
+        <option value="小説">小説</option>
+        <option value="その他">その他</option>
+        </select>
+        <?php if($error['genre'] == 'blank'): ?>
+        <p>*ジャンルを入力してください</P>
         <?php endif; ?>
         </dd>
 

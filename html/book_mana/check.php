@@ -15,7 +15,8 @@ if(!empty($_POST)){
       book_name=?, 
       book_maker=?, 
       publisher=?, 
-      publication=?, 
+      publication=?,
+      genre=?, 
       page=?, 
       age=?, 
       description=?, 
@@ -31,6 +32,7 @@ if(!empty($_POST)){
     $_SESSION['book']['book_maker'],
     $_SESSION['book']['publisher'],
     $_SESSION['book']['publication'],
+    $_SESSION['book']['genre'],
     $_SESSION['book']['page'],
     $_SESSION['book']['age'],
     $_SESSION['book']['description'],
@@ -70,6 +72,11 @@ if(!empty($_POST)){
         <dt>出版社</dt>
         <dd>
         <?php echo htmlspecialchars($_SESSION['book']['publisher'],3); ?>
+        </dd>
+
+        <dt>ジャンル</dt>
+        <dd>
+        <?php echo htmlspecialchars($_SESSION['book']['genre'],3); ?>
         </dd>
 
         <dt>出版日</dt>

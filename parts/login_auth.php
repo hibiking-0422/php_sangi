@@ -9,7 +9,7 @@ if(isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()){
     $admins->execute(array($_SESSION['id']));
     $admin = $admins->fetch();
 }else {
-    header('Location: /login/login.php');
+    header('Location: /index.php');
     exit();
 }
 ?>

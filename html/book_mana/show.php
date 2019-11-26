@@ -74,6 +74,11 @@ if(!empty($_POST)){
         <?php echo htmlspecialchars($book['publication'],3); ?>
         </dd>
 
+        <dt>ジャンル</dt>
+        <dd>
+        <?php echo htmlspecialchars($book['genre'],3); ?>
+        </dd>
+
         <dt>ページ数</dt>
         <dd>
         <?php echo htmlspecialchars($book['page'],3); ?>
@@ -91,7 +96,14 @@ if(!empty($_POST)){
 
         <dt>閲覧数</dt>
         <dd>
-        <?php echo htmlspecialchars($book['views'],3); ?>
+        <?php 
+            
+            if(empty($book['views'])){
+                echo 0;
+            }else{
+                echo htmlspecialchars($book['views'],3); 
+            }
+        ?>
         </dd>
 
         <dt>サムネイル</dt>
@@ -107,7 +119,13 @@ if(!empty($_POST)){
 
         <dt>高評価</dt>
         <dd>
-        <?php echo htmlspecialchars($good['good'], 3); ?>
+        <?php 
+            if(empty($good['good'])){
+                echo 0;
+            }else{
+                echo htmlspecialchars($good['good'],3); 
+            }
+        ?>
         </dd>
 
         <dt>登録者</dt>
