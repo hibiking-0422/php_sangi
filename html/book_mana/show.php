@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+
+<!--外部ファイル読み込み-->
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/assets/css/slick.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/css/slick-theme.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/css/book_mana/show.css"/>
+<script type="text/javascript" src="/assets/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/assets/js/slick.min.js"></script>
+<!---->
+
 <?php
 session_start();
 require("../../core/pdo_connect.php");
@@ -5,6 +19,7 @@ require("../../parts/login_auth.php");
 
 if(isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])){
     $id = $_REQUEST['id'];
+    $_SESSION['book_id'] = $id;
 
     $books = $db->prepare('SELECT * FROM books WHERE id = ?');
     $books->execute(array($id));
@@ -45,57 +60,38 @@ if(!empty($_POST)){
     $url = "show.php?id=" . $id ;
     header("Location:" . $url );
 }
-
 ?>
+</head>
+<body>
 
-    <dl>
-        <dt>書籍番号</dt>
-        <dd>
-        <?php echo htmlspecialchars($book['book_id'],3); ?>
-        </dd>
+<div class="thumbnail">
+    <img src = "../assets/thumbnail/<?php echo htmlspecialchars($book['thumbnail'], 3); ?>"  width="400px" height="550px" alt="" />
+</div>
+<div class="book-element">
+    <table>
+        <tr>
+            <th>書籍番号</th><td><?php echo htmlspecialchars($book['book_id'],3); ?></td>
 
-        <dt>書籍名</dt>
-        <dd>
-        <?php echo htmlspecialchars($book['book_name'],3); ?>
-        </dd>
+            <th>書籍名</th><td><?php echo htmlspecialchars($book['book_name'],3); ?></td>
+        </tr>
+        <tr>
+            <th>作者</th><td><?php echo htmlspecialchars($book['book_maker'],3); ?></td>
 
-        <dt>作者</dt>
-        <dd>
-        <?php echo htmlspecialchars($book['book_maker'],3); ?>
-        </dd>
+            <th>出版社</th><td><?php echo htmlspecialchars($book['publisher'],3); ?></td>
+        </tr>
+        <tr>
+            <th>出版日</th><td><?php echo htmlspecialchars($book['publication'],3); ?></td>
 
-        <dt>出版社</dt>
-        <dd>
-        <?php echo htmlspecialchars($book['publisher'],3); ?>
-        </dd>
+            <th>ジャンル</th><td><?php echo htmlspecialchars($book['genre'],3); ?></td>
+        </tr>
+        <tr>
+            <th>ページ数</th><td><?php echo htmlspecialchars($book['page'],3); ?></td>
 
-        <dt>出版日</dt>
-        <dd>
-        <?php echo htmlspecialchars($book['publication'],3); ?>
-        </dd>
-
-        <dt>ジャンル</dt>
-        <dd>
-        <?php echo htmlspecialchars($book['genre'],3); ?>
-        </dd>
-
-        <dt>ページ数</dt>
-        <dd>
-        <?php echo htmlspecialchars($book['page'],3); ?>
-        </dd>
-
-        <dt>対象年齢</dt>
-        <dd>
-        <?php echo htmlspecialchars($book['age'],3); ?>
-        </dd>
-
-        <dt>説明文</dt>
-        <dd>
-        <?php echo htmlspecialchars($book['description'],3); ?>
-        </dd>
-
-        <dt>閲覧数</dt>
-        <dd>
+            <th>対象年齢</th><td><?php echo htmlspecialchars($book['age'],3); ?>歳</td>
+        </tr>
+        <tr>
+        <th>閲覧数</th>
+        <td>
         <?php 
             
             if(empty($book['views'])){
@@ -104,21 +100,10 @@ if(!empty($_POST)){
                 echo htmlspecialchars($book['views'],3); 
             }
         ?>
-        </dd>
+        </td>
 
-        <dt>サムネイル</dt>
-        <dd>
-        <img src = "../assets/thumbnail/<?php echo htmlspecialchars($book['thumbnail'], 3); ?>"  width="auto" height=
-        "200" alt="" />
-        </dd>
-
-        <dt>書籍pdf</dt>
-        <dd>
-        <?php echo htmlspecialchars($book['book_pdf'],3); ?>
-        </dd>
-
-        <dt>高評価</dt>
-        <dd>
+        <th>高評価</th>
+            <td>
         <?php 
             if(empty($good['good'])){
                 echo 0;
@@ -126,50 +111,75 @@ if(!empty($_POST)){
                 echo htmlspecialchars($good['good'],3); 
             }
         ?>
-        </dd>
+        </td>
+        </tr>
+        <tr>
+            <th class="border-none">登録者</th><td class="border-none"><?php echo htmlspecialchars($admin['teacher_id'],3); ?></td>
+        </tr>
+        </table>
+</div>  
+    <div class="discription"><div class="discription-title">紹介</div>
+    <?php echo nl2br(htmlspecialchars($book['description'],3)); ?>
+</div>
 
-        <dt>登録者</dt>
-        <dd>
-        <?php echo htmlspecialchars($admin['teacher_id'],3); ?>
-        </dd>
-    </dl>
-    
-<p>編集者履歴</P>
+
+<a href="show_pdf.php?id=<?php print($book['id']); ?>"><div class="read-button">読む</div></a>
+<a href="edit.php?id=<?php print($book['id']); ?>"><div class="edit-button">編集</div></a>
+
+<hr>
+
+<div class="edit-log">
+<div class="edit-title">編集者履歴</div>
 <?php
 foreach ($edit_logs as $edit_log):
 $t_id_sql = 'SELECT teacher_id FROM admin WHERE id=' .  $edit_log['t_id'];
 $t_ids = $db->query($t_id_sql);
 $t_id = $t_ids->fetch();
 ?>
-<p><?php echo htmlspecialchars($t_id['teacher_id'], 3); ?>　<?php echo htmlspecialchars($edit_log['created'], 3); ?></p>
+<div class="edit-texts">
+    <span class="edit-text"><?php echo htmlspecialchars($t_id['teacher_id'], 3); ?></span>
+
+    <span class="edit-text"><?php echo htmlspecialchars($edit_log['created'], 3); ?></span>
+</div>
 <?php
 endforeach;
 ?>
-
-<p><a href="edit.php?id=<?php print($book['id']); ?>">編集</a></p>
-<p><a href="delete.php?id=<?php print($book['id']); ?>">削除</a></p>
-<p><a href="show_pdf.php?id=<?php print($book['id']); ?>">読む</a></p>
-
-<form action="" method="post">
-<dl>
-    <dd>
-        <input type="checkbox" name="good" value= 1 >高評価
-    </dd>
-    <dd>
-        <p><input type="text" name="name" placeholder="名前"></p>
-    <dd>
-        <textarea name="comment" cols="50" rows="5" placeholder="コメント"></textarea>
-    </dd>
-</dl>
-<div>
-    <input type="submit" value="コメントを送信" />
 </div>
-</form>
+</div>
 
+<div class="comment">
+<div class="comment-title">コメント</div>
 <?php
+$i = 1;
 foreach ($posts as $post):
 ?>
-<p><?php echo htmlspecialchars($post['name'], 3); ?>　<?php echo htmlspecialchars($post['comment'], 3); ?>　<?php echo htmlspecialchars($post['created'], 3); ?>　<?php echo htmlspecialchars($post['good'], 3); ?></p>
+<div class="comment-header">
+    <span class="comment-username">
+           <?php echo $i ?>.  <?php echo htmlspecialchars($post['name'], 3); ?>　
+    </span>
+    <span class="comment-date">
+        <?php echo htmlspecialchars($post['created'], 3); ?>
+    </sapn>
+</div>
+<div class="comment-area">
+    <span class="comment-areatext"><?php echo nl2br(htmlspecialchars($post['comment'], 3)); ?></span>
+</div>
+<div class="comment-footer">
+    <span class="comment-delete">
+            <a href="/comment/delete.php?id=<?php print($post['id']); ?>">削除</a>
+        </span>
+    <span class="comment-good">
+        <?php if($post['good'] == 1): ?>
+            <i class="fas fa-heart pink"></i>
+        <?php else: ?>
+            <i class="far fa-heart pink"></i>
+        <?php endif; ?>
+    </span>
+</div>
 <?php
+$i++;
 endforeach;
 ?>
+</div>
+</body>
+</html>

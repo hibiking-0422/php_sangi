@@ -1,0 +1,148 @@
+@charset 'UTF-8';
+
+.thumbnail{
+    display: inline-block;
+    margin-left: 100px;
+    margin-top: 30px;
+}
+
+.clearfix::after {
+    content : " ";
+    display : block;
+    clear : both;
+}
+
+.book-element{
+    margin-top: 30px;
+    display: inline-block;
+    margin-left: 150px;
+    width: 700px;
+    height: 500px;
+}
+
+td{
+    text-align: center;;
+}
+.table-element{
+    margin: 0 auto;
+    margin-top: -10px;
+    border: 2px solid #aaa;
+    border-radius: 25px;
+    width: 700px;
+    height: 500px;
+}
+
+th,td {
+    font-size: 20px;
+    border-bottom: 2px dotted #aaa;
+}
+
+.border-none{
+    border-style: none;
+}
+
+.discription{
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 1em;
+    border: 2px solid #aaa;
+    width: 800px;
+    border-radius: 25px;
+    min-height: 200px;
+    height: auto;
+}
+
+.discription-title{
+    text-align: center;
+    border-bottom: 2px dotted #aaa;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+textarea{
+    overflow: scroll;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 150px;
+    min-height:150px;
+    height: 150px;
+}
+
+
+.drop{
+        border: 4px dotted skyblue;
+        border-radius: 20px;
+}
+
+
+.drop-icon{
+    position: absolute;
+    top: 340px;
+    left:240px;
+    opacity: 0.5;
+}
+
+.drop-text{
+    position: absolute;
+    top: 300px;
+    left:275px;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.plus{
+    font-size: 150px;
+    color: skyblue;
+}
+
+.margin-file{
+    margin-left: 30px;
+}
+
+
+.submit-button{
+    font-size: 75px;
+    border: 2px solid #000;
+    width: 300px;
+    height: 100px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-left: 600px;
+    margin-bottom: 100px;
+    border-radius: 20px;
+    box-shadow: 4px 4px 4px #555;
+    background-color: skyblue;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0 auto;
+    text-align: center;
+    border: transparent 2px solid;
+    transition: all 500ms;
+}
+
+.submit-button:hover{
+    color: skyblue;
+    background-color: #fff;
+    border: 2px solid skyblue;
+    transition: all 500ms ease;
+}
+
+.error-area{
+    margin: 0 auto;
+    text-align: center;
+    border: 2px solid hotpink;
+    border-radius: 20px;
+    width: 500px;
+}
+
+.error-title{
+    text-align: center;
+    border-bottom: 2px dotted hotpink;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 900;
+    color: hotpink;
+}

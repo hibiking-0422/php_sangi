@@ -168,6 +168,9 @@ if($_REQUEST['action'] == 'rewrite'){
         <option value="しょくぶつ">しょくぶつ</option>
         <option value="おばけ・ホラー">おばけ・ホラー</option>
         <option value="むかしばなし">むかしばなし</option>
+        <option value="わらい">わらい</option>
+        <option value="ゆるふわ">ゆるふわ</option>
+        <option value="SF・ファンタジー">SF・ファンタジー</option>
         <option value="小説">小説</option>
         <option value="その他">その他</option>
         </select>
@@ -221,4 +224,5 @@ if($_REQUEST['action'] == 'rewrite'){
         </dd>
     </dl>
     <div><input type="submit" value="送信"></div>
+    <p><a href="delete.php?id=<?php print($book['id']); ?>">削除</a></p>
 </form>

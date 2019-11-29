@@ -17,19 +17,28 @@ require("../../core/pdo_connect.php");
 require("../../parts/login_auth.php");
 
 $count = 0;
+$index_page = 12;
+
+if(isset($_REQUEST['page']) && is_numeric($_REQUEST['page'])){
+        $page = $_REQUEST['page'];
+}else{
+        $page = 1;
+        unset($_SESSION['sql']);
+}
+$start = $index_page * ($page - 1);
+
+if(empty($_SESSION['sql'])){
+
 if(empty($_GET['keyword'])){
         $sql = 'SELECT * FROM books';
-
         if(!empty($_GET['genre']) or !empty($_GET['prev_publication'])){
                 $sql .= " WHERE ";
         }
 }else{
         $keyword = $_GET['keyword'];
-        $sql = "SELECT * FROM books WHERE book_name LIKE '%" . $keyword . "%' OR book_maker LIKE '%" . $keyword . "%' OR publisher LIKE '%" . $keyword . "%'";
+        $sql = "SELECT * FROM books WHERE book_name LIKE '%$keyword%' OR book_maker LIKE '%$keyword%' OR publisher LIKE '%$keyword%'";
         $count++;
 }
-
-
 
 if(!empty($_GET['genre'])){
 
@@ -45,8 +54,6 @@ if(!empty($_GET['genre'])){
         $sql  .= "$genre'";
         $count++;
 }
-
-
 
 if(!empty($_GET['prev_publication'])){
 
@@ -73,9 +80,6 @@ if(!empty($_GET['next_publication'])){
         $sql  .= "$next_publication'";
         $count++;
 }
-
-
-
 
 switch($_GET['sort']) {
         case 'new':
@@ -106,7 +110,26 @@ switch($_GET['sort']) {
                 break;
 }
 
-$books = $db->query($sql);
+if(empty($_GET['sort'])){
+        $sql .= " ORDER BY id LIMIT ?,$index_page";
+}else{
+        $sql .= " LIMIT ?,$index_page";
+}
+
+}else{
+        $sql = $_SESSION['sql'];
+}
+
+$book_counts_sql = "SELECT COUNT(*) FROM books"; 
+$book_counts = $db->query($book_counts_sql);
+$book_count = $book_counts->fetchColumn();
+
+$books = $db->prepare($sql);
+$books->bindParam(1, $start, PDO::PARAM_INT);
+$books->execute();
+
+$_SESSION['sql'] = $sql;
+
 ?>
 
 </head>
@@ -114,31 +137,40 @@ $books = $db->query($sql);
 <body>
 
 <div class="search-box clearfix">
-<p><a href="/book_mana/new.php">新規作成</a></p>
+<div class="search-area">
+<a href="/book_mana/new.php"><div class="new-button">新規作成</div></a>
 
 <form action="" method="get">
 
-キーワード<br>
+<div class="search-h">キーワード</div>
 <input type="text" name="keyword">
 
 <p>
-ジャンル<br>
+<div class="search-h">ジャンル</div>
 <p><input type="radio" name="genre" value="のりもの">のりもの</p>
 <p><input type="radio" name="genre" value="どうぶつ">どうぶつ</p>
 <p><input type="radio" name="genre" value="こんちゅう">こんちゅう</p>
 <p><input type="radio" name="genre" value="しょくぶつ">しょくぶつ</p>
 <p><input type="radio" name="genre" value="おばけ・ホラー">おばけ・ホラー</p>
 <p><input type="radio" name="genre" value="むかしばなし">むかしばなし</p>
+<p><input type="radio" name="genre" value="わらい">わらい</p>
+<p><input type="radio" name="genre" value="ゆるふわ">ゆるふわ</p>
+<p><input type="radio" name="genre" value="SF・ファンタジー">SF・ファンタジー</p>
 <p><input type="radio" name="genre" value="小説">小説</p>
 <p><input type="radio" name="genre" value="その他">その他</p>
 </p>
 
 <p>
-出版日 <br>
-<input type="date" name="prev_publication" />~<input type="date" name="next_publication" />
+<div class="search-h">出版日</div>
 <p>
+        <p><input type="date" name="prev_publication" />  から</p>
+        <p><input type="date" name="next_publication" />  まで</p>
+</p>
+</p>
+
 <p>
-並び替え<br>
+<div class="search-h">並び替え</div>
+<p>
 <select name="sort">
         <option value="">選択してください</option>
         <option value="new">新しい順</option>
@@ -151,10 +183,12 @@ $books = $db->query($sql);
         <option value="high_age">対象年齢の高い順</option>
 </select>
 </p>
+</p>
 
 <p><input type="checkbox" name="vagueness" value="vagueness">あいまい検索</p>
 <input type="submit" value="検索">
 </form>
+</div>
 </div>
 
 <div class="views">
@@ -178,15 +212,15 @@ $good = $goods->fetch();
 ?>
 <div class="book-box">
         <div class="book-scale">
-                <p><?php echo $i+1;?></p>
+                       <div class="book-number"><?php echo (($i+1) + ($page-1)*$index_page);?></div>
                 <div class="book-shadow">
                         <a href="show.php?id=<?php print($book['id']); ?>">
                                 <img src = "../assets/thumbnail/<?php echo htmlspecialchars($book['thumbnail'], 3); ?>"  width="250" height="400" alt="" />
                         </a>
                 </div>
                 <div class="book-text">
-                        <?php echo htmlspecialchars($book['book_name'], 3); ?>
-                        <p>高評価:
+                        <div class="under-line"><?php echo htmlspecialchars($book['book_name'], 3); ?></div>
+                        <div class="under-line">高評価:
                         <?php 
                                 if(empty($good['good'])){
                                         echo 0;
@@ -194,11 +228,10 @@ $good = $goods->fetch();
                                         echo htmlspecialchars($good['good'],3); 
                                 }
                         ?>  
-                        </p>
+                        </div>
                 </div>
-                
         </div>
-</div>　　　　　　　　　　
+</div>　　　　　   　　　　　
 <?php
 if($i % 3 == 2){
         echo $end;
@@ -209,7 +242,12 @@ endforeach;
 ?>
 
 <hr>
-<?php echo $sql; ?>
+<?php if($page >= 2): ?>
+<a href="index.php?page=<?php print($page-1); ?>"><?php print($page-1); ?>ページ</a>
+<?php endif; ?>
+|
+<a href="index.php?page=<?php print($page+1); ?>"><?php print($page+1); ?>ページ</a>
 </div>
+
 </body>
 </html>

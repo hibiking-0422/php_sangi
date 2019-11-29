@@ -1,3 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+
+<!--外部ファイル読み込み-->
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/assets/css/slick.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/css/slick-theme.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/css/book_mana/new.css"/>
+<script type="text/javascript" src="/assets/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/assets/js/slick.min.js"></script>
+<!---->
+
+<script>
+$(function(){
+  $('#thumbnail').change(function(e){
+    //ファイルオブジェクトを取得する
+    var file = e.target.files[0];
+    var reader = new FileReader();
+ 
+    //画像でない場合は処理終了
+    if(file.type.indexOf("image") < 0){
+      alert("画像ファイルを指定してください。");
+      return false;
+    }
+ 
+    //アップロードした画像を設定する
+    reader.onload = (function(file){
+      return function(e){
+        $("#img1").attr("src", e.target.result);
+        $("#img1").attr("title", file.name);
+      };
+    })(file);
+    reader.readAsDataURL(file);
+ 
+  });
+});
+</script>
+
 <?php
 session_start();
 require("../../core/pdo_connect.php");
@@ -90,49 +130,44 @@ if($_REQUEST['action'] == 'rewrite'){
     $_POST = $_SESSION['book'];
 }
 ?>
+</head>
+<body>
 
 <form action="" method="post" enctype="multipart/form-data">
-    <dl>
-        <dt>書籍番号</dt>
-        <dd><input type="text" name="book_id" value="<?php echo htmlspecialchars($_POST['book_id'], 3); ?>" />
-        <?php if($error['book_id'] == 'blank'): ?>
-        <p>*書籍番号を入力してください</p>
-        <?php endif; ?>
-        <?php if($error['book_id'] == 'duplicate'): ?>
-        <P>*この書籍番号は既に登録されています</P>
-        <?php endif; ?>
-        </dd>
+        <div class="thumbnail">
+            <p><img id="img1" class="drop" style="width:400px;height:550px;"/></p>
+            <table>
+                <tr>
+                    <th>サムネイル</th><td><input type="file" id="thumbnail" name="thumbnail" class="margin-file" /></td>
+                </tr>
+                <tr>
+                    <th>書籍pdf</th><td><input type="file" name="book_pdf" class="margin-file"/></td>
+                <tr>
+            </table>            
+        </div>
 
-        <dt>書籍名</dt>
-        <dd><input type="text" name="book_name" value="<?php echo htmlspecialchars($_POST['book_name'], 3); ?>" />
-        <?php if($error['book_name'] == 'blank'): ?>
-        <p>*書籍名を入力してください</P>
-        <?php endif; ?>
-        </dd>
+    <div class="book-element">
+        <table class="table-element">
+            <th>書籍番号</th>
+            <td><input type="text" name="book_id" value="<?php echo htmlspecialchars($_POST['book_id'], 3); ?>" /></td>
+        
+            <th>書籍名</th>
+            <td><input type="text" name="book_name" value="<?php echo htmlspecialchars($_POST['book_name'], 3); ?>" /></td>
+        </tr>
+        <tr>
+            <th>作者</th>
+            <td><input type="text" name="book_maker" value="<?php echo htmlspecialchars($_POST['book_maker'], 3); ?>" /></td>
 
-        <dt>作者</dt>
-        <dd><input type="text" name="book_maker" value="<?php echo htmlspecialchars($_POST['book_maker'], 3); ?>" />
-        <?php if($error['book_maker'] == 'blank'): ?>
-        <p>*作者を入力してください</P>
-        <?php endif; ?>
-        </dd>
+            <th>出版社</th>
+            <td><input type="text" name="publisher" value="<?php echo htmlspecialchars($_POST['publisher'], 3); ?>" /></td>        
+        </tr>
+        <tr>
 
-        <dt>出版社</dt>
-        <dd><input type="text" name="publisher" value="<?php echo htmlspecialchars($_POST['publisher'], 3); ?>" />
-        <?php if($error['publisher'] == 'blank'): ?>
-        <p>*出版社を入力してください</P>
-        <?php endif; ?>
-        </dd>
+        <th>出版日</th>
+        <td><input type="date" name="publication" value="<?php echo htmlspecialchars($_POST['publication'], 3); ?>" /></td>
 
-        <dt>出版日</dt>
-        <dd><input type="date" name="publication" value="<?php echo htmlspecialchars($_POST['publication'], 3); ?>" />
-        <?php if($error['publication'] == 'blank'): ?>
-        <p>*出版日を入力してください</P>
-        <?php endif; ?>
-        </dd>
-
-        <dt>ジャンル</dt>
-        <dd>
+        <th>ジャンル</th>
+        <td>
         <select name="genre">
         <option value="">選択してください</option>
         <option value="のりもの">のりもの</option>
@@ -141,55 +176,89 @@ if($_REQUEST['action'] == 'rewrite'){
         <option value="しょくぶつ">しょくぶつ</option>
         <option value="おばけ・ホラー">おばけ・ホラー</option>
         <option value="むかしばなし">むかしばなし</option>
+        <option value="わらい">わらい</option>
+        <option value="ゆるふわ">ゆるふわ</option>
+        <option value="SF・ファンタジー">SF・ファンタジー</option>
         <option value="小説">小説</option>
         <option value="その他">その他</option>
         </select>
+        </td>   
+        </tr>
+        <tr>
+            <th class="border-none">ページ数</th>
+            <td class="border-none"><input type="number" name="page" value="<?php echo htmlspecialchars($_POST['page'], 3); ?>" /></td>
+
+            <th class="border-none">対象年齢</th>
+            <td class="border-none"><input type="number" name="age" value="<?php echo htmlspecialchars($_POST['age'], 3); ?>" /></td>
+        </tr>
+    </table>
+</div>
+        <div class="discription"><div class="discription-title">紹介</div>
+            <pre><textarea name="description" cols="50" rows="5"><?php echo htmlspecialchars($_POST['description'], 3); ?></textarea></pre>
+
+        </div>
+
+<?php if(!empty($error)): ?>
+<div class="error-area">
+    <div class="error-title">Warning!</div>
+        <?php if($error['book_id'] == 'blank'): ?>
+        <p>*書籍番号を入力してください</p>
+        <?php endif; ?>
+        <?php if($error['book_id'] == 'duplicate'): ?>
+        <P>*この書籍番号は既に登録されています</P>
+        <?php endif; ?>
+
+        <?php if($error['book_name'] == 'blank'): ?>
+        <p>*書籍名を入力してください</P>
+        <?php endif; ?>
+
+        <?php if($error['book_maker'] == 'blank'): ?>
+        <p>*作者を入力してください</P>
+        <?php endif; ?>
+
+        <?php if($error['publisher'] == 'blank'): ?>
+        <p>*出版社を入力してください</P>
+        <?php endif; ?>
+
+        <?php if($error['publication'] == 'blank'): ?>
+        <p>*出版日を入力してください</P>
+        <?php endif; ?>
+
         <?php if($error['genre'] == 'blank'): ?>
         <p>*ジャンルを入力してください</P>
         <?php endif; ?>
-        </dd>
 
-        <dt>ページ数</dt>
-        <dd><input type="number" name="page" value="<?php echo htmlspecialchars($_POST['page'], 3); ?>" />
         <?php if($error['page'] == 'blank'): ?>
         <p>*ページ数を入力してください</P>
         <?php endif; ?>
-        </dd>
 
-        <dt>対象年齢</dt>
-        <dd><input type="number" name="age" value="<?php echo htmlspecialchars($_POST['age'], 3); ?>" />
         <?php if($error['age'] == 'blank'): ?>
         <p>*対象年齢を入力してください</P>
         <?php endif; ?>
-        </dd>
 
-        <dt>説明文</dt>
-        <dd><textarea name="description" cols="50" rows="5"><?php echo htmlspecialchars($_POST['description'], 3); ?></textarea>
         <?php if($error['description'] == 'blank'): ?>
         <p>*説明文を入力してください</P>
         <?php endif; ?>
-        </dd>
 
-        <dt>サムネイル</dt>
-        <dd><input type="file" name="thumbnail" size="35" />
         <?php if($error['thumbnail'] == 'blank'): ?>
         <p>*サムネイルを指定してください</P>
         <?php endif; ?>
         <?php if($error['thumbnail'] == 'type'): ?>
         <p>*gif または　jpg の画像を指定してください</P>
         <?php endif; ?>
-        </dd>
 
-        <dt>書籍pdf</dt>
-        <dd><input type="file" name="book_pdf" size="35" />
         <?php if($error['book_pdf'] == 'blank'): ?>
         <p>*書籍pdfを指定してください</P>
         <?php endif; ?>
         <?php if($error['book_pdf'] == 'type'): ?>
         <p>*pdfファイルを指定してください</P>
         <?php endif; ?>
-        
-        </dd>
-    </dl>
-    <div><input type="submit" value="送信"></div>
+</div>
+<?php endif; ?>
+
+        <input type="submit"  class="submit-button" value="確認">
 </form>
+
+
+</body>
+</html>
