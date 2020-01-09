@@ -1,0 +1,240 @@
+@charset 'UTF-8';
+
+.clearfix::after {
+    content : " ";
+    display : block;
+    clear : both;
+}
+
+.search-box{
+    width: 370px;
+    height: auto;
+    padding: 0.5em 1em;
+    margin: 2em auto;
+    border: solid 2px #aaa;
+}
+
+.book-views{
+    margin-left: 50%;
+    width: 100%;
+}
+
+.book-box{
+  display: inline-block;
+  width: 200px;
+  height: 100px;
+}
+
+.book-scale{
+    display:block;
+    margin-top: 10px;
+    margin-left: 200px;
+}
+
+.book-shadow{
+filter: drop-shadow(10px 10px 5px #aaa);
+}
+
+.book-text {
+    padding: 0.5em 1em;
+    margin: 1em 0;
+    width: 220px;
+    font-size: 15px;
+}
+
+hr{
+    width: 75%;
+}
+
+.book-number{
+    position: relative;
+    left: -25px;
+    width: 12px;
+    border-bottom: solid 2px #aaa;
+}
+
+.under-line{
+    border-bottom: solid 3px #aab;
+    margin-top: 10px;;
+}
+
+.search-h{
+    font-weight: bold;
+}
+
+.new-button{
+    margin: 20px;
+    width: 200px;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    padding: 8px 0 10px;
+    color: #fff;
+    background-color: skyblue;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #555;
+    border: transparent 2px solid;
+    transition: all 500ms;
+}
+
+.new-button:hover{
+    color: skyblue;
+    background-color: #fff;
+    border: 2px solid skyblue;
+    transition: all 500ms ease;
+}
+.genre{
+    right: 5px;
+}
+.day{
+    flex-wrap: wrap;
+}
+.sort{
+    flex-wrap: wrap;
+}
+.search{
+    flex-wrap: wrap;
+    padding-left: 10px;
+}
+
+.paging{
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 200px;
+}
+
+.paging-left{
+    margin: 20px;
+    width: 200px;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    padding: 8px 0 10px;
+    color: #fff;
+    background-color: skyblue;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #555;
+    border: transparent 2px solid;
+    transition: all 500ms;
+}
+
+.paging-left:hover{
+    color: skyblue;
+    background-color: #fff;
+    border: 2px solid skyblue;
+    transition: all 500ms ease;
+}
+
+.paging-right{
+    margin-left: 200px;
+    width: 200px;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    padding: 8px 0 10px;
+    color: #fff;
+    background-color: skyblue;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #555;
+    border: transparent 2px solid;
+    transition: all 500ms;
+}
+
+.paging-right:hover{
+    color: skyblue;
+    background-color: #fff;
+    border: 2px solid skyblue;
+    transition: all 500ms ease;
+}
+
+.paging-center{
+    margin-left: 0px;
+    width: 200px;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    padding: 8px 0 10px;
+    color: #fff;
+    background-color: skyblue;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #555;
+    border: transparent 2px solid;
+    transition: all 500ms;
+}
+
+.paging-center:hover{
+    color: skyblue;
+    background-color: #fff;
+    border: 2px solid skyblue;
+    transition: all 500ms ease;
+}
+
+.search-button{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    width: 200px;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    padding: 8px 0 10px;
+    color: #fff;
+    background-color: skyblue;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #555;
+    border: transparent 2px solid;
+    transition: all 500ms;
+}
+
+.search-button:hover{
+    color: skyblue;
+    background-color: #fff;
+    border: 2px solid skyblue;
+    transition: all 500ms ease;
+}
+
+.request-button{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    width: 200px;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    padding: 8px 0 10px;
+    color: #fff;
+    background-color: skyblue;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #555;
+    border: transparent 2px solid;
+    transition: all 500ms;
+}
+
+.request-button:hover{
+    color: skyblue;
+    background-color: #fff;
+    border: 2px solid skyblue;
+    transition: all 500ms ease;
+}
+
+a {
+    text-decoration: none;
+}
+
+.comp-box{
+    width: 100%;
+    text-align: center;
+    background-color: #FFB875;
+}

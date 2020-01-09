@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+
+<!--外部ファイル読み込み-->
+<link rel="stylesheet" type="text/css" href="/assets/css/slick.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/css/slick-theme.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/css/join/index.css"/>
+<script type="text/javascript" src="/assets/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/assets/js/slick.min.js"></script>
+<!---->
+
 <?php
 session_start();
 require("../../core/pdo_connect.php");
@@ -5,9 +18,10 @@ require("../../parts/login_auth.php");
 
 $admins = $db->query('SELECT * FROM admin');
 ?>
-<p><a href="/join/new.php">新規作成</a></p>
+</head>
 
-
+<div class="table-box">
+<p><a href="/join/new.php">管理者新規作成</a></p>
 <table border="1">
     <tr>
         <th>id</th>
@@ -29,5 +43,6 @@ foreach($admins as $admin):
 endforeach;
 ?>
 </table>
+</div>
 
 

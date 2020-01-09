@@ -41,7 +41,7 @@ if(!empty($_POST)){
                 $_SESSION['id'] = $admin['id'];
                 $_SESSION['time'] = time();
 
-                header('Location: ../admin/admin_home.php');
+                header('Location: /admin/admin_home.php');
                 exit();
             }else {
                 $error['login'] = 'failed';
@@ -50,6 +50,9 @@ if(!empty($_POST)){
         $error['login'] = 'blank';
     }
 }
+
+
+
 ?>
 
 
@@ -66,7 +69,7 @@ if(!empty($_POST)){
         <dd>
         <input type="text" name="teacher_id" maxlength="255" value="<?php echo htmlspecialchars($_POST['teacher_id'], 3); ?>" />
         <?php if($error['login'] == 'blank'): ?>
-        <p>*メールアドレスとパスワードを入力してください</p>
+        <p>*職員番号とパスワードを入力してください</p>
         <?php endif; ?>
         <?php if($error['login'] == 'failed'): ?>
         <p>*ログインに失敗しました</P>
@@ -80,3 +83,4 @@ if(!empty($_POST)){
 </form>
 </div>
 </body>
+</html>
