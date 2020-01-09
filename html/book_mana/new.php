@@ -133,6 +133,64 @@ if($_REQUEST['action'] == 'rewrite'){
 </head>
 <body>
 
+<?php if(!empty($error)): ?>
+<div class="error-area">
+    <div class="error-title">Warning!</div>
+        <?php if($error['book_id'] == 'blank'): ?>
+        <p>*書籍番号を入力してください</p>
+        <?php endif; ?>
+        <?php if($error['book_id'] == 'duplicate'): ?>
+        <P>*この書籍番号は既に登録されています</P>
+        <?php endif; ?>
+
+        <?php if($error['book_name'] == 'blank'): ?>
+        <p>*書籍名を入力してください</P>
+        <?php endif; ?>
+
+        <?php if($error['book_maker'] == 'blank'): ?>
+        <p>*作者を入力してください</P>
+        <?php endif; ?>
+
+        <?php if($error['publisher'] == 'blank'): ?>
+        <p>*出版社を入力してください</P>
+        <?php endif; ?>
+
+        <?php if($error['publication'] == 'blank'): ?>
+        <p>*出版日を入力してください</P>
+        <?php endif; ?>
+
+        <?php if($error['genre'] == 'blank'): ?>
+        <p>*ジャンルを入力してください</P>
+        <?php endif; ?>
+
+        <?php if($error['page'] == 'blank'): ?>
+        <p>*ページ数を入力してください</P>
+        <?php endif; ?>
+
+        <?php if($error['age'] == 'blank'): ?>
+        <p>*対象年齢を入力してください</P>
+        <?php endif; ?>
+
+        <?php if($error['description'] == 'blank'): ?>
+        <p>*説明文を入力してください</P>
+        <?php endif; ?>
+
+        <?php if($error['thumbnail'] == 'blank'): ?>
+        <p>*サムネイルを指定してください</P>
+        <?php endif; ?>
+        <?php if($error['thumbnail'] == 'type'): ?>
+        <p>*gif または　jpg の画像を指定してください</P>
+        <?php endif; ?>
+
+        <?php if($error['book_pdf'] == 'blank'): ?>
+        <p>*書籍pdfを指定してください</P>
+        <?php endif; ?>
+        <?php if($error['book_pdf'] == 'type'): ?>
+        <p>*pdfファイルを指定してください</P>
+        <?php endif; ?>
+</div>
+<?php endif; ?>
+
 <form action="" method="post" enctype="multipart/form-data">
         <div class="thumbnail">
             <p><img id="img1" class="drop" style="width:400px;height:550px;"/></p>
@@ -194,71 +252,24 @@ if($_REQUEST['action'] == 'rewrite'){
     </table>
 </div>
         <div class="discription"><div class="discription-title">紹介</div>
-            <pre><textarea name="description" cols="50" rows="5"><?php echo htmlspecialchars($_POST['description'], 3); ?></textarea></pre>
-
+            <div id="app">
+                <pre><textarea v-model="comment" name="description" cols="50" rows="5"><?php echo htmlspecialchars($_POST['description'], 3); ?></textarea></pre>
+                <p>文字数:{{comment.length}}</p>
+            </div>
         </div>
-
-<?php if(!empty($error)): ?>
-<div class="error-area">
-    <div class="error-title">Warning!</div>
-        <?php if($error['book_id'] == 'blank'): ?>
-        <p>*書籍番号を入力してください</p>
-        <?php endif; ?>
-        <?php if($error['book_id'] == 'duplicate'): ?>
-        <P>*この書籍番号は既に登録されています</P>
-        <?php endif; ?>
-
-        <?php if($error['book_name'] == 'blank'): ?>
-        <p>*書籍名を入力してください</P>
-        <?php endif; ?>
-
-        <?php if($error['book_maker'] == 'blank'): ?>
-        <p>*作者を入力してください</P>
-        <?php endif; ?>
-
-        <?php if($error['publisher'] == 'blank'): ?>
-        <p>*出版社を入力してください</P>
-        <?php endif; ?>
-
-        <?php if($error['publication'] == 'blank'): ?>
-        <p>*出版日を入力してください</P>
-        <?php endif; ?>
-
-        <?php if($error['genre'] == 'blank'): ?>
-        <p>*ジャンルを入力してください</P>
-        <?php endif; ?>
-
-        <?php if($error['page'] == 'blank'): ?>
-        <p>*ページ数を入力してください</P>
-        <?php endif; ?>
-
-        <?php if($error['age'] == 'blank'): ?>
-        <p>*対象年齢を入力してください</P>
-        <?php endif; ?>
-
-        <?php if($error['description'] == 'blank'): ?>
-        <p>*説明文を入力してください</P>
-        <?php endif; ?>
-
-        <?php if($error['thumbnail'] == 'blank'): ?>
-        <p>*サムネイルを指定してください</P>
-        <?php endif; ?>
-        <?php if($error['thumbnail'] == 'type'): ?>
-        <p>*gif または　jpg の画像を指定してください</P>
-        <?php endif; ?>
-
-        <?php if($error['book_pdf'] == 'blank'): ?>
-        <p>*書籍pdfを指定してください</P>
-        <?php endif; ?>
-        <?php if($error['book_pdf'] == 'type'): ?>
-        <p>*pdfファイルを指定してください</P>
-        <?php endif; ?>
-</div>
-<?php endif; ?>
 
         <input type="submit"  class="submit-button" value="確認">
 </form>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+   <script>
+     new Vue({
+       el: "#app",
+       data: {
+         comment: ""
+       }
+     })
+</script>
 
 </body>
 </html>

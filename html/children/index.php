@@ -122,6 +122,7 @@ if(empty($_GET['sort'])){
 $book_counts_sql = "SELECT COUNT(*) FROM books"; 
 $book_counts = $db->query($book_counts_sql);
 $book_count = $book_counts->fetchColumn();
+$max_page = ceil($book_count / $index_page);
 
 $books = $db->prepare($sql);
 $books->bindParam(1, $start, PDO::PARAM_INT);
@@ -134,41 +135,58 @@ $_SESSION['sql'] = $sql;
 </head>
 
 <body>
-ほんのいちらん
-<a href="./child_requests/request.php">ほんのリクエスト</a>
-<div class="search-box clearfix">
+
+<?php if(!empty($_SESSION['comp'])): ?>
+        <div class="comp-box"><h1><?php echo htmlspecialchars($_SESSION['comp'], 3); ?></h1></div>
+        <?php unset($_SESSION['comp']); ?>
+<?php endif; ?>
+
+<a href="./child_requests/new.php"><div class="request-button">ほんのリクエスト</div></a>
+<div class="search-box">
 <div class="search-area">
 
 <form action="" method="get">
-
-<div class="search-h">キーワード</div>
-<input type="text" name="keyword">
-
 <p>
-<div class="search-h">ジャンル</div>
-<p><input type="radio" name="genre" value="のりもの">のりもの</p>
-<p><input type="radio" name="genre" value="どうぶつ">どうぶつ</p>
-<p><input type="radio" name="genre" value="こんちゅう">こんちゅう</p>
-<p><input type="radio" name="genre" value="しょくぶつ">しょくぶつ</p>
-<p><input type="radio" name="genre" value="おばけ・ホラー">おばけ・ホラー</p>
-<p><input type="radio" name="genre" value="むかしばなし">むかしばなし</p>
-<p><input type="radio" name="genre" value="わらい">わらい</p>
-<p><input type="radio" name="genre" value="ゆるふわ">ゆるふわ</p>
-<p><input type="radio" name="genre" value="SF・ファンタジー">SF・ファンタジー</p>
-<p><input type="radio" name="genre" value="小説">しょうせつ</p>
-<p><input type="radio" name="genre" value="その他">そのた</p>
+<div class="key">
+<p>
+<div class="search-h">キーワード</div>
+</p>
+<input type="text" name="keyword">
+</div>
 </p>
 
+<div class="genre">
+<p>
+<div class="search-h">ジャンル</div>
+</p>
+<select name="genre">
+        <option value="">--えらんでね--</option>
+        <option value="のりもの">のりもの</option>
+        <option value="どうぶつ">どうぶつ</option>
+        <option value="こんちゅう">こんちゅう</option>
+        <option value="しょくぶつ">しょくぶつ</option>
+        <option value="おばけ・ホラー">おばけ・ホラー</option>
+        <option value="むかしばなし">むかしばなし</option>
+        <option value="わらい">わらい</option>
+        <option value="ゆるふわ">ゆるふわ</option>
+        <option value="SF・ファンタジー">SF・ファンタジー</option>
+        <option value="小説">しょうせつ</option>
+        <option value="その他">そのた</option>
+</select>
+</div>
+
+<div class="day">
 <p>
 <div class="search-h">しゅっぱんび</div>
 <p>
-        <p><input type="date" name="prev_publication" />  から</p>
-        <p><input type="date" name="next_publication" />  まで</p>
+        <p><input type="date" name="prev_publication" />  から
+        <input type="date" name="next_publication" />  まで</p>
 </p>
 </p>
-
+</div>
+<div class="sort">
 <p>
-<div class="search-h">ならびえ</div>
+<div class="search-h">ならびかえ</div>
 <p>
 <select name="sort">
         <option value="">--えらんでね--</option>
@@ -183,12 +201,21 @@ $_SESSION['sql'] = $sql;
 </select>
 </p>
 </p>
+</div>
 
+<div class="search">
 <p><input type="checkbox" name="vagueness" value="vagueness">あいまいけんさく</p>
-<input type="submit" value="検索">
+
+<p>
+<input class="search-button"type="submit" value="検索">
+</p>
+
+</div>
 </form>
 </div>
 </div>
+
+<hr>
 
 <div class="views">
 
@@ -198,7 +225,7 @@ $start = '<p>';
 $end = '</p>';
 $hr = '<hr>';
 foreach ($books as $book):
-if($i % 3 == 0){
+if($i % 2 == 0){
         echo $start;
 }
 
@@ -213,7 +240,7 @@ $good = $goods->fetch();
         <div class="book-scale">
                        <div class="book-number"><?php echo (($i+1) + ($page-1)*$index_page);?></div>
                 <div class="book-shadow">
-                        <a href="child_books/show.php?id=<?php print($book['id']); ?>">
+                        <a href="./child_books/show.php?id=<?php print($book['id']); ?>">
                                 <img src = "../assets/thumbnail/<?php echo htmlspecialchars($book['thumbnail'], 3); ?>"  width="250" height="400" alt="" />
                         </a>
                 </div>
@@ -232,20 +259,25 @@ $good = $goods->fetch();
         </div>
 </div>　　　　　   　　　　　
 <?php
-if($i % 3 == 2){
+if($i % 2 == 1){
         echo $end;
-        echo $hr;
 }
 $i = $i + 1;
 endforeach;
 ?>
 
 <hr>
+
+<div class="paging">
 <?php if($page >= 2): ?>
-<a href="index.php?page=<?php print($page-1); ?>"><?php print($page-1); ?>ページ</a>
+        <a href="index.php?page=<?php print($page-1); ?>"><div class="paging-left"><?php print($page-1); ?>ページ</div></a>
+        <?php if($page < $max_page): ?>
+                <a href="index.php?page=<?php print($page+1); ?>"><div class="paging-right"><?php print($page+1); ?>ページ</div></a>
+        <?php endif; ?>
+<?php else: ?>
+        <a href="index.php?page=<?php print($page+1); ?>"><div class="paging-center"><?php print($page+1); ?>ページ</div></a>
 <?php endif; ?>
-|
-<a href="index.php?page=<?php print($page+1); ?>"><?php print($page+1); ?>ページ</a>
+</div>
 </div>
 
 </body>

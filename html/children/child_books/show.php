@@ -14,7 +14,7 @@
 
 <?php
 session_start();
-require("../../core/pdo_connect.php");
+require("../../../core/pdo_connect.php");
 
 if(isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])){
     $id = $_REQUEST['id'];
@@ -64,7 +64,7 @@ if(!empty($_POST)){
 <body>
 
 <div class="thumbnail">
-    <img src = "../assets/thumbnail/<?php echo htmlspecialchars($book['thumbnail'], 3); ?>"  width="400px" height="550px" alt="" />
+    <img src = "../../assets/thumbnail/<?php echo htmlspecialchars($book['thumbnail'], 3); ?>"  width="500px" height="700px" alt="" />
 </div>
 <div class="book-element">
     <table>
@@ -101,7 +101,7 @@ if(!empty($_POST)){
         ?>
         </td>
 
-        <th>いいね</th>
+        <th>こうひょうか</th>
             <td>
         <?php 
             if(empty($good['good'])){
@@ -118,14 +118,11 @@ if(!empty($_POST)){
     <?php echo nl2br(htmlspecialchars($book['description'],3)); ?>
 </div>
 
-
-<a href="show_pdf.php?id=<?php print($book['id']); ?>"><div class="read-button">読む</div></a>
+<a href="../index.php"><div class="back-button">もどる</div></a>
+<a href="show_pdf.php?id=<?php print($book['id']); ?>"><div class="read-button">よむ</div></a>
 
 <hr>
 
-<?php
-endforeach;
-?>
 </div>
 </div>
 
@@ -161,20 +158,24 @@ endforeach;
 ?>
 </div>
 
+<div class= "comment-form">
 <form action="" method="post">
 <dl>
     <dd>
-        <input type="checkbox" name="good" value= 1 >いいね
+        <input type="checkbox" name="good" value= 1 >　こうひょうか
     </dd>
+    <br>
     <dd>
-        <p><input type="text" name="name" placeholder="名前"></p>
+        <p><input class="big-font" type="text" name="name" placeholder="名前"></p>
     <dd>
-        <textarea name="comment" cols="50" rows="5" placeholder="コメント"></textarea>
+        <textarea class="big-font" name="comment" cols="30" rows="5" placeholder="コメント"></textarea>
     </dd>
 </dl>
 <div>
-    <input type="submit" value="コメントを送信" />
+    <input class="comment-submit" type="submit" value="送信" />
 </div>
 </form>
+</div>
+
 </body>
 </html>

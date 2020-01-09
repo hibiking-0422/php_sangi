@@ -123,6 +123,7 @@ if(empty($_GET['sort'])){
 $book_counts_sql = "SELECT COUNT(*) FROM books"; 
 $book_counts = $db->query($book_counts_sql);
 $book_count = $book_counts->fetchColumn();
+$max_page = ceil($book_count / $index_page);
 
 $books = $db->prepare($sql);
 $books->bindParam(1, $start, PDO::PARAM_INT);
@@ -241,12 +242,17 @@ $i = $i + 1;
 endforeach;
 ?>
 
-<hr>
+
+<div class="paging">
 <?php if($page >= 2): ?>
-<a href="index.php?page=<?php print($page-1); ?>"><?php print($page-1); ?>ページ</a>
+        <a href="index.php?page=<?php print($page-1); ?>"><div class="paging-left"><?php print($page-1); ?>ページ</div></a>
+        <?php if($page < $max_page): ?>
+                <a href="index.php?page=<?php print($page+1); ?>"><div class="paging-right"><?php print($page+1); ?>ページ</div></a>
+        <?php endif; ?>
+<?php else: ?>
+        <a href="index.php?page=<?php print($page+1); ?>"><div class="paging-center"><?php print($page+1); ?>ページ</div></a>
 <?php endif; ?>
-|
-<a href="index.php?page=<?php print($page+1); ?>"><?php print($page+1); ?>ページ</a>
+</div>
 </div>
 
 </body>

@@ -126,6 +126,8 @@ if(!empty($_POST)){
 <a href="show_pdf.php?id=<?php print($book['id']); ?>"><div class="read-button">読む</div></a>
 <a href="edit.php?id=<?php print($book['id']); ?>"><div class="edit-button">編集</div></a>
 
+
+
 <hr>
 
 <div class="edit-log">

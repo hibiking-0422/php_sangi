@@ -1,6 +1,6 @@
 <?php
 session_start();
-require("../../core/pdo_connect.php");
+require("../../../core/pdo_connect.php");
 
 if(isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])){
     $id = $_REQUEST['id'];
@@ -21,7 +21,7 @@ if(isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])){
 }
 
 
-$file_name = '../assets/book_pdf/' . $book['book_pdf']; // ファイル名
+$file_name = '../../assets/book_pdf/' . $book['book_pdf']; // ファイル名
 
 
 //PDFを出力するためのヘッダー
