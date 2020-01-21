@@ -1,0 +1,45 @@
+.main-contents{
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    width: 500px;
+    border: solid 2px gray;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.title{
+    font-size: 30px;
+    padding: 10px;
+}
+
+.submit-button{
+    font-size: 50px;
+    border: 2px solid #000;
+    width: 300px;
+    height: 100px;
+    margin-bottom: 50px;
+    border-radius: 20px;
+    box-shadow: 4px 4px 4px #555;
+    background-color: skyblue;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0 auto;
+    text-align: center;
+    border: transparent 2px solid;
+    transition: all 500ms;
+}
+
+.submit-button:hover{
+    color: skyblue;
+    background-color: #fff;
+    border: 2px solid skyblue;
+    transition: all 500ms ease;
+}
+
+.input-desgin{
+    font-size: 30px;
+    margin-bottom: 50px;
+}

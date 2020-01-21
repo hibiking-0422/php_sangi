@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link href="/assets/css/requests/index.css" rel="stylesheet" type="text/css">
+
 <?php
 session_start();
 require("../../core/pdo_connect.php");
@@ -5,8 +11,7 @@ require("../../parts/login_auth.php");
 
 $requests = $db->query('SELECT * FROM requests');
 ?>
-<p><a href="/requests/new.php">新規作成</a></p>
-
+</head>
 
 <table border="1">
     <tr>

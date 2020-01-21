@@ -91,11 +91,6 @@ hr{
     transition: all 500ms ease;
 }
 
-a {
-    text-decoration: none;
-    color: black;
-}
-
 .test{
     color: #F7D0B6;
     background-color: #F7D0B6;

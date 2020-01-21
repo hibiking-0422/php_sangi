@@ -1,6 +1,7 @@
 <?php
 session_start();
 require("../../core/pdo_connect.php");
+require("header.php");
 
 if(isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()){
     $_SESSION['time'] = time();
@@ -13,8 +14,3 @@ if(isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()){
     exit();
 }
 ?>
-<p><a href = "../book_mana/index.php">本の管理</a>　
-<a href="/join/index.php">ユーザ管理</a>　
-<a href="/requests/index.php">本のリクエスト</a>
-<a href="/login/logout.php">ログアウト</a></p>
-<hr>

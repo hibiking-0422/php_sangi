@@ -1,36 +1,25 @@
-<div id="app">
+<head>
+  <link href="/assets/css/header.css" rel="stylesheet" type="text/css">
+</head>
 
-  <div class="content">
-    <span>{{ scrollY }}</span>
-  </div>
-  
-</div>
-
-<script>
-new Vue({
-  el: '#app',
-  data: {
-  	scrollY: 0
-  },
-  mounted() {
-  	window.addEventListener('scroll', this.handleScroll);
-  },
-  methods: {
-    handleScroll() {
-  		this.scrollY = window.scrollY;
-    }
-  }
-})
-</script>
-
-<style>
-.content {
-  min-height: 300vh;
-  background-color: #000;
-}
-
-.content span{
-  position: fixed;
-  background-color: #fff;
-}
-</style>
+<header>
+        <h1 class="headline">
+            <a>Sangi Library</a>
+        </h1>
+        <ul class="nav-list">
+            <span class="nav-right">
+              <li class="nav-list-item">
+                <a href = "../book_mana/index.php">本の管理</a>　
+              </li>
+              <li class="nav-list-item">
+                <a href="/join/index.php">ユーザ管理</a>　
+              </li>
+              <li class="nav-list-item">
+                <a href="/requests/index.php">本のリクエスト</a>
+              </li>
+              <li class="nav-list-item">
+                <a href="/login/logout.php">ログアウト</a></p>
+              </li>
+              </span>
+          </ul>
+</header>

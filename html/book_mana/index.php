@@ -130,13 +130,11 @@ $books->bindParam(1, $start, PDO::PARAM_INT);
 $books->execute();
 
 $_SESSION['sql'] = $sql;
-
 ?>
 
 </head>
 
 <body>
-
 <div class="search-box clearfix">
 <div class="search-area">
 <a href="/book_mana/new.php"><div class="new-button">新規作成</div></a>
@@ -254,6 +252,6 @@ endforeach;
 <?php endif; ?>
 </div>
 </div>
-
+</div>
 </body>
 </html>
