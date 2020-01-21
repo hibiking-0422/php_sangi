@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link href="/assets/css/join/edit.css" rel="stylesheet" type="text/css">
+<link href="/assets/css/join/common.css" rel="stylesheet" type="text/css">
+</head>
 <?php
 session_start();
 require("../../core/pdo_connect.php");
@@ -47,11 +54,12 @@ if(!empty($_POST)){
 
 ?>
 
+<div class="main-contents">
 <form action="" method="post">
     <dl>
         <input type="hidden" name="id" value="<?php print($id); ?>">
-        <dt>職員番号</dt>
-        <dd><input type="text" name="teacher_id" maxlength="255" value="<?php echo htmlspecialchars($admin['teacher_id'], 3); ?>" />
+        <dt class="title">職員番号</dt>
+        <dd><input type="text" name="teacher_id" class="input-desgin" maxlength="255" value="<?php echo htmlspecialchars($admin['teacher_id'], 3); ?>" />
         <?php if($error['teacher_id'] == 'blank'): ?>
         <p>* 職員番号を入力してください </p>
         <?php endif; ?>
@@ -60,8 +68,8 @@ if(!empty($_POST)){
         <?php endif; ?>
         </dd>
 
-        <dt>パスワード</dt>
-        <dd><input type="password" name="password" maxlength="255" value="<?php echo htmlspecialchars($_POST['password'],3) ?>" />
+        <dt class="title">パスワード</dt>
+        <dd><input type="password" name="password" class="input-desgin" maxlength="255" value="<?php echo htmlspecialchars($_POST['password'],3) ?>" />
         <?php if($error['password'] == 'blank'): ?>
         <p>*パスワードを入力してください</p>
         <?php endif; ?>
@@ -69,13 +77,14 @@ if(!empty($_POST)){
         <p>*パスワードは6文字以上で入力してください</p>
         <?php endif; ?>
         </dd>
-        <dt>パスワード(確認)</dt>
-        <dd><input type="password" name="re_password" maxlength="255" value="<?php echo htmlspecialchars($_POST['re_password'],3) ?>" />
+        <dt class="title">パスワード(確認)</dt>
+        <dd><input type="password" name="re_password"  class="input-desgin" maxlength="255" value="<?php echo htmlspecialchars($_POST['re_password'],3) ?>" />
         <?php if($error['re_password'] == 'different'): ?>
         <p>*パスワードと確認用パスワードが異なります</P>
         <?php endif; ?>
         </dd>
 
     </dl>
-    <div><input type="submit" value="送信"></div>
+    <div><input type="submit"  class="submit-button" value="送信"></div>
 </form>
+</div>

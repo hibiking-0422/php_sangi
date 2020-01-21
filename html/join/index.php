@@ -21,10 +21,9 @@ $admins = $db->query('SELECT * FROM admin');
 </head>
 
 <div class="table-box">
-<p><a href="/join/new.php">管理者新規作成</a></p>
+<a href="/join/new.php"><span class="new-join">管理者新規作成</span></a>
 <table border="1">
     <tr>
-        <th>id</th>
         <th>職員番号</th>
         <th>作成日</th>
     </tr>
@@ -32,7 +31,6 @@ $admins = $db->query('SELECT * FROM admin');
 foreach($admins as $admin):
 ?>
     <tr>
-        <td><?php echo htmlspecialchars($admin['id'], 3); ?></td>
         <td><?php echo htmlspecialchars($admin['teacher_id'], 3); ?></td>
         <td><?php print(mb_substr($admin['created'],0, 10)); ?></td>
         <td><a href="edit.php?id=<?php print($admin['id']); ?>">編集</a></td>
