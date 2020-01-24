@@ -43,7 +43,7 @@ if(!empty($_POST)){
         <ul class="nav-list">
             <span class="nav-right">
               <li class="nav-list-item">
-              <a href="./children/index.php">ほんをよむ</a>
+              <a href="../children/index.php">ほんをよむ</a>
               </li>
               </span>
           </ul>

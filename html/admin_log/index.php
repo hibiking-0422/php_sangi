@@ -21,32 +21,56 @@ $delete_log_sql = 'SELECT * FROM delete_log WHERE admin_id=' . $id;
 $delete_logs = $db->query($delete_log_sql);
 ?>
 
+
 <p>登録履歴</P>
+<table border="1">
 <?php
 foreach ($books as $book):
 ?>
-<p><?php echo htmlspecialchars($book['book_id'], 3); ?>　<a href="/book_mana/show.php?id=<?php print($book['id']); ?>"><?php echo htmlspecialchars($book['book_name'], 3); ?></a>　<?php echo htmlspecialchars($book['created'], 3); ?></p>
+<tr>
+    <td><?php echo htmlspecialchars($book['book_id'], 3); ?></td>
+    <td><a href="/book_mana/show.php?id=<?php print($book['id']); ?>"><?php echo htmlspecialchars($book['book_name'], 3); ?></a></td>　
+    <td><?php echo htmlspecialchars($book['created'], 3); ?></td>
+</tr>
 <?php
 endforeach;
 ?>
+</table>
+<br>
 
 <p>編集履歴</P>
+<table border="1">
 <?php
 foreach ($edit_logs as $edit_log):
 $b_id_sql = 'SELECT * FROM books WHERE id=' .  $edit_log['b_id'];
 $b_ids = $db->query($b_id_sql);
 $b_id = $b_ids->fetch();
 ?>
-<p><?php echo htmlspecialchars($b_id['book_id'], 3); ?>　<a href="/book_mana/show.php?id=<?php print($b_id['id']); ?>"><?php echo htmlspecialchars($b_id['book_name'], 3); ?></a>　<?php echo htmlspecialchars($edit_log['created'], 3); ?></p>
+<tr>
+    <td><?php echo htmlspecialchars($b_id['book_id'], 3); ?></td>　
+    <td><a href="/book_mana/show.php?id=<?php print($b_id['id']); ?>"><?php echo htmlspecialchars($b_id['book_name'], 3); ?></a></td>
+    <td><?php echo htmlspecialchars($edit_log['created'], 3); ?></td>
+</tr>
 <?php
 endforeach;
 ?>
-
+</table>
+<br>
 <p>削除履歴</p>
+
+<table border="1">
 <?php
 foreach($delete_logs as $delete_log):
 ?>
-<P><?php echo htmlspecialchars($delete_log['book_id'], 3); ?>　<?php echo htmlspecialchars($delete_log['book_name'], 3); ?>　<?php echo htmlspecialchars($delete_log['created'], 3); ?></p>
+<tr>
+    <td><?php echo htmlspecialchars($delete_log['book_id'], 3); ?></td>　
+    <td><?php echo htmlspecialchars($delete_log['book_name'], 3); ?><?php echo htmlspecialchars($delete_log['created'], 3); ?></td>
+</tr>
 <?php
 endforeach;
 ?>
+</table>
+
+<br>
+<br>
+<br>
